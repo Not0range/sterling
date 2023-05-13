@@ -1,0 +1,10 @@
+.header-button {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+
+.header-button p {
+    margin: 0;
+    font-size: small;
+}

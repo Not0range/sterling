@@ -1,0 +1,2 @@
+D:\Projects\Visual Studio\Sterling\reactapp\obj\Debug\reactapp.esproj.SuggestedBindingRedirects.cache
+D:\Projects\Visual Studio\Sterling\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache

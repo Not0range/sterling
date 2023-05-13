@@ -1,0 +1,51 @@
+#admin-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin: 0px 15px 0px 15px;
+}
+
+#form-container {
+    display: flex;
+    margin: 5px;
+}
+
+#form-container>div {
+    margin: 0 10px;
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+#form-container>div>textarea {
+    padding: 5px;
+    height: 10vh;
+    resize: none;
+    border-radius: 10px;
+}
+
+#form-container div>input[type="text"],
+#form-container div>input[type="number"] {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#form-container div>select {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#types-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.type-img {
+    align-self: start;
+    height: 20vh;
+    object-fit: contain;
+}
+
+#form-container p {
+    margin: 5px 0 0 0;
+}

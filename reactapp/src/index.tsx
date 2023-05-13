@@ -1,0 +1,66 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './styles/index.css';
+import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider
+} from "react-router-dom";
+import Main from './routes/Main';
+import Search from './routes/Search';
+import About from './routes/About';
+import App from './App';
+import Product from './routes/Product';
+import Category from './routes/Category';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import ProductForm from './routes/ProductForm';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Main />,
+      },
+      {
+        path: '/search',
+        element: <Search />
+      },
+      {
+        path: '/about',
+        element: <About />
+      },
+      {
+        path: '/product',
+        element: <Product />
+      },
+      {
+        path: '/category',
+        element: <Category />
+      },
+      {
+        path: '/product-form',
+        element: <ProductForm />
+      }
+    ]
+  }
+]);
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
