@@ -1,0 +1,28 @@
+.cart-item {
+    display: flex;
+    flex-direction: row;
+    height: 15vh;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 5px 5px;
+    padding: 10px;
+    user-select: none;
+    align-items: center;
+}
+.cart-item:hover {
+    background-color: aliceblue;
+}
+
+.cart-item img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cart-item>* {
+    margin: 0 5px;
+}
+
+.cart-item h1 {
+    flex-grow: 1;
+}

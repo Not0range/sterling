@@ -72,7 +72,8 @@ namespace webapi.Controllers
                     Id = t.Id,
                     Title = t.Title,
                     Cart = t.Products.Select(t2 => db.HashGet(cart, t2.Id, CommandFlags.None).Get(0)).Sum(),
-                    ImageUrl = $"api/images/{t.Products.FirstOrDefault()?.Id ?? 0}",
+                    ImageUrl = $"api/images/product/{t.Products.OrderByDescending(t1 => t1.Id)
+                        .FirstOrDefault(t2 => t2.Image != null)?.Id ?? 0}",
                     Price = t.Products.Count > 0 ? t.Products.Max(p => p.Price) : 0,
                 });
         }
@@ -92,13 +93,14 @@ namespace webapi.Controllers
                     Id = t.Id,
                     Title = t.Title,
                     Cart = t.Products.Select(t2 => db.HashGet(cart, t2.Id, CommandFlags.None).Get(0)).Sum(),
-                    ImageUrl = $"api/images/{t.Products.FirstOrDefault()?.Id ?? 0}",
+                    ImageUrl = $"api/images/product/{t.Products.OrderByDescending(t1 => t1.Id)
+                        .FirstOrDefault(t2 => t2.Image != null)?.Id ?? 0}",
                     Price = t.Products.Count > 0 ? t.Products.Max(p => p.Price) : 0,
                 });
         }
 
         [HttpGet("search/{page}")]
-        public IEnumerable<ShortProduct> Search(string query, int page = 1)
+        public IEnumerable<ShortProduct> Search(string query, [FromQuery] SearchParams searchParams, int page = 1)
         {
             var cart = $"cart:{UserId}";
             var db = _redis.GetDatabase();
@@ -110,7 +112,7 @@ namespace webapi.Controllers
                     Id = t.Id,
                     Title = t.Title,
                     Cart = t.Products.Select(t2 => db.HashGet(cart, t2.Id, CommandFlags.None).Get(0)).Sum(),
-                    ImageUrl = $"api/images/{t.Products.FirstOrDefault()?.Id ?? 0}",
+                    ImageUrl = $"api/images/product/{t.Products.FirstOrDefault(t2 => t2.Image != null)?.Id ?? 0}",
                     Price = t.Products.Count > 0 ? t.Products.Max(p => p.Price) : 0,
                 });
         }

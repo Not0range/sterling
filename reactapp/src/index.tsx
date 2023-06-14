@@ -15,6 +15,12 @@ import Category from './routes/Category';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import ProductForm from './routes/ProductForm';
+import History from './routes/History';
+import Bookmark from './routes/Bookmark';
+import Cart from './routes/Cart';
+import Orders from './routes/Orders';
+import OrdersControl from './routes/OrdersControl';
+import CategoryForm from './routes/CategoryForm';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +50,30 @@ const router = createBrowserRouter([
       {
         path: '/product-form',
         element: <ProductForm />
+      },
+      {
+        path: '/category-form',
+        element: <CategoryForm />
+      },
+      {
+        path: '/history',
+        element: <History />
+      },
+      {
+        path: '/bookmark',
+        element: <Bookmark />
+      },
+      {
+        path: '/cart',
+        element: <Cart />
+      },
+      {
+        path: '/orders',
+        element: <Orders />
+      },
+      {
+        path: '/orders/admin',
+        element: <OrdersControl />
       }
     ]
   }

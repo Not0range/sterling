@@ -1,0 +1,6 @@
+#cart-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin: 0px 15px 0px 15px;
+}

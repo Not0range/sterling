@@ -20,18 +20,27 @@ namespace webapi.Controllers
             base(context, multiplexer, localizer)
         { }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(int id)
+        [HttpGet("product/{id}")]
+        public async Task<ActionResult> GetProduct(int id)
         {
             var product = await _ctx.Products.AsNoTracking().FirstOrDefaultAsync(t =>  t.Id == id);
             if (product == null || product.Image == null) return NotFound();
 
-            return File(product.Image, "image/png");
+            return File(product.Image, "image/*");
         }
 
-        [HttpPost("{id}")]
+        [HttpGet("category/{id}")]
+        public async Task<ActionResult> GetCategory(int id)
+        {
+            var category = await _ctx.Categories.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+            if (category == null || category.Image == null) return NotFound();
+
+            return File(category.Image, "image/*");
+        }
+
+        [HttpPost("product/{id}")]
         [RequestSizeLimit(10 * 1024 * 1024)]
-        public async Task<ActionResult> Upload(int id, IFormFile file)
+        public async Task<ActionResult> UploadProduct(int id, IFormFile file)
         {
             if (file == null) return BadRequest();
 
@@ -39,15 +48,34 @@ namespace webapi.Controllers
             if (product == null) return NotFound();
 
             var stream = file.OpenReadStream();
-#pragma warning disable CA1416 // Validate platform compatibility
-            var img = Image.FromStream(stream, false, true);
-            stream.Close();
             var mem = new MemoryStream();
-            img.Save(mem, ImageFormat.Png);
-#pragma warning restore CA1416 // Validate platform compatibility
+            await stream.CopyToAsync(mem);
 
+            stream.Close();
             product.Image = mem.ToArray();
             mem.Close();
+
+            await _ctx.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("category/{id}")]
+        [RequestSizeLimit(10 * 1024 * 1024)]
+        public async Task<ActionResult> UploadCategory(int id, IFormFile file)
+        {
+            if (file == null) return BadRequest();
+
+            var category = await _ctx.Categories.FirstOrDefaultAsync(t => t.Id == id);
+            if (category == null) return NotFound();
+
+            var stream = file.OpenReadStream();
+            var mem = new MemoryStream();
+            await stream.CopyToAsync(mem);
+
+            stream.Close();
+            category.Image = mem.ToArray();
+            mem.Close();
+
             await _ctx.SaveChangesAsync();
             return Ok();
         }

@@ -3,9 +3,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import $ from 'jquery';
 import { ProductDetail } from "../models/Product";
 import { p } from "../Utils";
-import { pushNotification, useAppDispatch, useAppSelector } from "../store";
+import { pushNotification, setProfile, useAppDispatch, useAppSelector } from "../store";
 import '../styles/Product.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoadingComponent from "../components/LoadingComponent";
+import ErrorComponent from "../components/ErrorComponent";
 
 export default function Product() {
     const dispatcher = useAppDispatch();
@@ -18,6 +20,11 @@ export default function Product() {
     const [selected, setSelected] = useState(0);
     const [img, setImg] = useState(0);
     const [count, setCount] = useState(1);
+    
+    useEffect(() => {
+        if (product) document.title = `${product.title} - Sterling`;
+        else document.title = 'Товар - Sterling';
+    }, [product]);
 
     useEffect(() => {
         $.ajax(`/api/product/id/${p(location.search, 'id')}`, {
@@ -62,6 +69,15 @@ export default function Product() {
             }),
             success: () => {
                 dispatcher(pushNotification({ text: 'Товар добавлен в корзину', type: 'info' }));
+                refreshProfile();
+            }
+        });
+    }
+
+    const refreshProfile = () => {
+        $.ajax(`/api/user/getMe/`, {
+            success: result => {
+                dispatcher(setProfile(result));
             }
         });
     }
@@ -103,8 +119,8 @@ export default function Product() {
                     </div>
                 </div>
             }
-            {product == null && !error && <p>Loading...</p>}
-            {error && <p>Error!</p>}
+            {product == null && !error && <LoadingComponent />}
+            {error && <ErrorComponent />}
             {product &&
                 <div>
                     <div id='product-main'>

@@ -1,0 +1,17 @@
+.spinner {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    aspect-ratio: 1;
+    border-top: 3px solid lightblue;
+    border-radius: 50px;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}

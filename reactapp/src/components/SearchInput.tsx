@@ -10,6 +10,7 @@ export default function SearchInput() {
                 <input
                     type='text'
                     name='query'
+                    className='form-control'
                     placeholder='Поиск'
                     value={query}
                     onChange={e => setQuery(e.target.value)}

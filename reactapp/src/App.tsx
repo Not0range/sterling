@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
-import LoginDialog from "./components/LoginDialog";
 import { useEffect } from "react";
 import $ from 'jquery';
 import { setCategories, setProfile, useAppDispatch } from "./store";
@@ -24,7 +23,6 @@ export default function App() {
         <div>
             <Header />
             <Outlet />
-            <LoginDialog />
             <ToastContainer />
         </div>
     )

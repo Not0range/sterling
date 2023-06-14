@@ -4,6 +4,8 @@ import $ from 'jquery';
 import { useLocation } from "react-router-dom";
 import ProductItem from "../components/ProductItem";
 import '../styles/Search.css';
+import LoadingComponent from "../components/LoadingComponent";
+import ErrorComponent from "../components/ErrorComponent";
 
 export default function Search() {
     const location = useLocation();
@@ -12,6 +14,10 @@ export default function Search() {
     const [end, setEnd] = useState(false);
     const [error, setError] = useState(false);
     const [items, setItems] = useState<Product[]>([]);
+    
+    useEffect(() => {
+        document.title = 'Поиск - Sterling';
+    }, []);
 
     const getProducts = () => {
         $.ajax(`/api/product/search/${page + 1}${location.search}`, {
@@ -49,8 +55,8 @@ export default function Search() {
 
     return (
         <div>
-            {loading && <p>Loading...</p>}
-            {error && !page && <p>Error!</p>}
+            {loading && <LoadingComponent />}
+            {error && !page && <ErrorComponent />}
             {!loading && !error &&
                 <div id='search-container'>
                     {items.map(t => <ProductItem product={t} key={t.id} />)}

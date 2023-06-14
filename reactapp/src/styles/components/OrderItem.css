@@ -1,0 +1,35 @@
+.order-item {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 5px 5px;
+    padding: 10px;
+    user-select: none;
+}
+.order-item:hover {
+    background-color: aliceblue;
+}
+
+.order-item-div {
+    flex-grow: 1;
+    margin: 0 5px;
+}
+
+.subitem-div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.subitem-div p {
+    margin: 0;
+}
+
+.button-div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+    width: 15vw;
+}

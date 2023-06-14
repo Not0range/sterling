@@ -1,5 +1,5 @@
 #header {
-    padding: 0px 10px 0px 10px;
+    padding: 0px 10px 10px 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -23,15 +23,43 @@
     margin: 0px 0px 0px 10px;
 }
 
-#greetings-box, #admin-control {
+#greetings-box{
     display: flex;
     flex-direction: row;
 }
 
+#admin-control {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+}
+
+#admin-control>div {
+    margin: 0 5px;
+    padding: 0;
+    align-self: center;
+}
+
+#admin-control p {
+    margin: 5px 5px;
+}
+
 #greetings {
     align-self: center;
+    margin: 0 5px;
 }
 
 #greetings p {
     margin: 0;
+}
+
+#main-logo {
+    flex-grow: 1;
+    height: 50px;
+}
+
+#main-logo img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }

@@ -14,7 +14,7 @@ export default function ProductItem({ product }: IProps) {
             <img src={url} onError={onError} />
             <h5>{product.title}</h5>
             <div className='price-cart-row'>
-                <p>{product.price}</p>
+                <p>{product.price} р</p>
                 {product.cart > 0 && <p>В корзине</p>}
             </div>
         </Link>

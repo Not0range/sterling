@@ -1,0 +1,11 @@
+.error-container {
+    position: absolute;
+    width: 30vw;
+    height: 30vh;
+    top: calc(50% - 15vh);
+    left: calc(50% - 15vw);
+}
+
+.error-container p {
+    color: red;
+}

@@ -1,0 +1,17 @@
+#category-admin-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin: 0px 15px 0px 15px;
+}
+
+#category-form-container {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#category-form-container input[type="text"] {
+    padding: 5px;
+    border-radius: 10px;
+}

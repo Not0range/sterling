@@ -4,14 +4,16 @@ import $ from 'jquery';
 import ProductItem from "../components/ProductItem";
 import '../styles/Main.css';
 import CategoryItem from "../components/CategoryItem";
+import { useAppSelector } from "../store";
+import LoadingComponent from "../components/LoadingComponent";
+import ErrorComponent from "../components/ErrorComponent";
 
 export default function Main() {
+    const categories = useAppSelector(state => state.main.categories);
     const [page, setPage] = useState(0);
-    const [loadingCategory, setLoadingCategory] = useState(true);
     const [loadingProduct, setLoadingProduct] = useState(true);
     const [end, setEnd] = useState(false);
     const [error, setError] = useState(false);
-    const [categories, setCategories] = useState<Category[]>([]);
     const [items, setItems] = useState<Product[]>([]);
 
     const getProducts = () => {
@@ -40,28 +42,19 @@ export default function Main() {
     };
 
     useEffect(() => {
+        document.title = 'Главная - Sterling';
         window.addEventListener('scroll', checkEdge);
         return () => window.removeEventListener('scroll', checkEdge);
     }, []);
 
     useEffect(() => {
-        $.ajax(`/api/category`, {
-            success: (result) => {
-                setCategories(result);
-                setLoadingCategory(false);
-            },
-            error: () => {
-                setLoadingCategory(false);
-                setError(true);
-            }
-        });
         getProducts();
     }, []);
 
     return (
         <div>
-            {loadingProduct && <p>Loading...</p>}
-            {error && !page && <p>Error!</p>}
+            {loadingProduct && <LoadingComponent />}
+            {error && !page && <ErrorComponent />}
             {!loadingProduct && !error &&
                 <div id='category-container'>
                     {categories.map(t => <CategoryItem category={t} key={`cat${t.id}`} />)}

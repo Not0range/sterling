@@ -7,19 +7,12 @@ const mainSlice = createSlice({
     name: 'main',
     initialState: {
         profile: null,
-        formVisible: false,
         notifications: [],
         categories: []
     } as IState,
     reducers: {
         setProfile: (state, action: PayloadAction<Profile | null>) => {
             state.profile = action.payload;
-        },
-        showForm: state => {
-            state.formVisible = true;
-        },
-        hideForm: state => {
-            state.formVisible = false;
         },
         pushNotification: (state, action: PayloadAction<Notification>) => {
             state.notifications.push(action.payload);
@@ -37,7 +30,6 @@ interface Notification {
 
 interface IState {
     profile: Profile | null;
-    formVisible: boolean;
     notifications: Notification[];
     categories: Category[];
 }
@@ -54,4 +46,4 @@ export type AppDispatch = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 
-export const { setProfile, showForm, hideForm, pushNotification, setCategories } = mainSlice.actions;
+export const { setProfile, pushNotification, setCategories } = mainSlice.actions;

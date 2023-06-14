@@ -26,7 +26,14 @@ var connectionString = builder.Configuration.GetConnectionString("Database");
 builder.Services.AddDbContext<SterlingContext>(option => 
     option.UseNpgsql(connectionString));
 
-var multiplexer = ConnectionMultiplexer.Connect("localhost");
+var multiplexer = ConnectionMultiplexer.Connect(new ConfigurationOptions
+{
+    EndPoints =
+    {
+        {"localhost" }
+    },
+    SyncTimeout = 20000
+});
 builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
 builder.Services.AddLocalization(option => option.ResourcesPath = "Locales");

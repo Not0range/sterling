@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Form, Link, useLocation, useNavigate } from "react-router-dom";
 import $ from 'jquery';
 import { p, replace } from "../Utils";
-import { ProductDetail, ProductType } from "../models/Product";
+import { ProductType } from "../models/Product";
 import { pushNotification, useAppDispatch, useAppSelector } from "../store";
 import '../styles/ProductForm.css';
+import LoadingComponent from "../components/LoadingComponent";
+import ErrorComponent from "../components/ErrorComponent";
 
 export default function ProductForm() {
     const isAdmin = useAppSelector(state => state.main.profile?.isAdmin);
@@ -22,10 +24,12 @@ export default function ProductForm() {
     const [description, setDescription] = useState('');
     const [types, setTypes] = useState<ProductType[]>([]);
     const [selected, setSelected] = useState(0);
+    
+    useEffect(() => {
+        document.title = 'Управление товаром - Sterling';
+    }, []);
 
     useEffect(() => {
-        console.log('asdasd');
-
         setError(false);
         if (!isAdmin) {
             setLoading(false);
@@ -107,7 +111,7 @@ export default function ProductForm() {
 
                     const data = new FormData();
                     data.append('file', files[i]);
-                    await $.ajax(`/api/images/${result.types[i].id}`, {
+                    await $.ajax(`/api/images/product/${result.types[i].id}`, {
                         method: 'POST',
                         processData: false,
                         contentType: false,
@@ -133,9 +137,9 @@ export default function ProductForm() {
 
     return (
         <div>
-            {loading && !error && <p>Loading...</p>}
-            {error && <p>Error!</p>}
-            {!loading &&
+            {loading && !error && <LoadingComponent />}
+            {error && <ErrorComponent />}
+            {!loading && !error &&
                 <div>
                     <div id='admin-panel'>
                         <div className="btn btn-outline-primary" onClick={save}>Сохранить</div>
