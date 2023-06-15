@@ -13,7 +13,7 @@ export default function Product() {
     const dispatcher = useAppDispatch();
     const navigate = useNavigate();
 
-    const isAdmin = useAppSelector(state => state.main.profile?.isAdmin);
+    const profile = useAppSelector(state => state.main.profile);
     const location = useLocation();
     const [product, setProduct] = useState<ProductDetail | null>(null);
     const [error, setError] = useState(false);
@@ -45,6 +45,10 @@ export default function Product() {
     }
 
     const bookmark = () => {
+        if (profile == null) {
+            dispatcher(pushNotification({ text: 'Для добавления товаров в избранное необходимо войти в систему', type: 'warning' }));
+            return;
+        }
         $.ajax(`/api/collection/bookmark/${p(location.search, 'id')}`, {
             success: () => {
                 if (product) {
@@ -59,6 +63,10 @@ export default function Product() {
     }
 
     const cart = () => {
+        if (profile == null) {
+            dispatcher(pushNotification({ text: 'Для добавления товаров в корзину необходимо войти в систему', type: 'warning' }));
+            return;
+        }
         $.ajax(`/api/collection/cart/`, {
             method: 'POST',
             processData: false,
@@ -70,7 +78,7 @@ export default function Product() {
             success: () => {
                 dispatcher(pushNotification({ text: 'Товар добавлен в корзину', type: 'info' }));
                 refreshProfile();
-            }
+            },
         });
     }
 
@@ -93,7 +101,7 @@ export default function Product() {
 
     return (
         <div>
-            {isAdmin && product &&
+            {profile?.isAdmin && product &&
                 <div id='admin-product-panel'>
                     <Link to={`/product-form?id=${product?.id}`} className="btn btn-outline-primary">Редактировать</Link>
                     <div style={{ width: '5px' }} />
