@@ -5,12 +5,13 @@ import ProductItem from "../components/ProductItem";
 import '../styles/Main.css';
 import { useLocation, useNavigate } from "react-router-dom";
 import { p } from "../Utils";
-import { useAppSelector } from "../store";
+import { setCategories, useAppDispatch, useAppSelector } from "../store";
 import '../styles/Category.css';
 import LoadingComponent from "../components/LoadingComponent";
 import ErrorComponent from "../components/ErrorComponent";
 
 export default function Category() {
+    const dispatcher = useAppDispatch();
     const isAdmin = useAppSelector(state => state.main.profile?.isAdmin);
     const location = useLocation();
     const navigate = useNavigate();
@@ -52,7 +53,12 @@ export default function Category() {
         $.ajax(`/api/category/${id}`, {
             method: 'DELETE',
             success: () => {
-                navigate('/');
+                $.ajax('/api/category', {
+                    success: result => {
+                        dispatcher(setCategories(result));
+                        navigate('/');
+                    }
+                })
             }
         })
     }

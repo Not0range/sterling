@@ -1,6 +1,5 @@
 .category-item {
-    max-width: 15vw;
-    min-width: 150px;
+    width: 200px;
     padding: 0px 15px;
     text-align: end;
     border-radius: 10px;
@@ -23,5 +22,6 @@
 .category-item img {
     display: block;
     height: 100%;
+    aspect-ratio: 1;
     object-fit: contain;
 }

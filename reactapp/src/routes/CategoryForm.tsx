@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Link, useLocation, useNavigate } from "react-router-dom";
 import $ from 'jquery';
 import { p } from "../Utils";
-import { pushNotification, useAppDispatch, useAppSelector } from "../store";
+import { pushNotification, setCategories, useAppDispatch, useAppSelector } from "../store";
 import '../styles/CategoryForm.css';
 import LoadingComponent from "../components/LoadingComponent";
 import ErrorComponent from "../components/ErrorComponent";
@@ -65,18 +65,26 @@ export default function CategoryForm() {
             data: JSON.stringify(title),
             success: async result => {
                 const form = new FormData(document.querySelector('#img-form') as HTMLFormElement);
-                await $.ajax(`/api/images/category/${result.id}`, {
-                    method: 'POST',
-                    processData: false,
-                    contentType: false,
-                    data: form,
-                    error: () => {
-                        dispatcher(pushNotification({
-                            text: 'Ошибка загрузки файла',
-                            type: 'danger'
-                        }));
+
+                if ((form.get('file') as File).size > 0) {
+                    await $.ajax(`/api/images/category/${result.id}`, {
+                        method: 'POST',
+                        processData: false,
+                        contentType: false,
+                        data: form,
+                        error: () => {
+                            dispatcher(pushNotification({
+                                text: 'Ошибка загрузки файла',
+                                type: 'danger'
+                            }));
+                        }
+                    });
+                }
+                await $.ajax('/api/category', {
+                    success: result => {
+                        dispatcher(setCategories(result));
                     }
-                });
+                })
                 navigate(`/category?id=${result.id}`);
             },
             error: () => {
