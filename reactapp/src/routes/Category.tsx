@@ -6,7 +6,6 @@ import '../styles/Main.css';
 import { useLocation, useNavigate } from "react-router-dom";
 import { p } from "../Utils";
 import { useAppSelector } from "../store";
-import CategoryDialog from "../components/CategoryDialog";
 import '../styles/Category.css';
 import LoadingComponent from "../components/LoadingComponent";
 import ErrorComponent from "../components/ErrorComponent";

@@ -1,0 +1,21 @@
+.payment-page {
+    padding: 5px 15px;
+    background-image: url('/public/review_bg.png');
+}
+
+.split-container {
+    display: flex;
+    flex-direction: row;
+    margin: 2vh 0;
+    justify-content: center;
+}
+
+.split-container>* {
+    width: 45vw;
+}
+
+.split-container>div>img {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+}

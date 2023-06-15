@@ -1,0 +1,9 @@
+.about-container {
+    background-image: url('/public/review_bg.png');
+    padding: 5px 20px;
+}
+
+.about-container p {
+    font-size: xx-large;
+    text-align: center;
+}

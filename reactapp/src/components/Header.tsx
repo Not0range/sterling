@@ -6,7 +6,6 @@ import { setProfile, useAppDispatch, useAppSelector } from "../store";
 import $ from 'jquery';
 import LoginDialog from "./LoginDialog";
 import RegisterDialog from "./RegisterDialog";
-import CategoryDialog from "./CategoryDialog";
 
 export default function Header() {
     const profile = useAppSelector(state => state.main.profile);
@@ -15,10 +14,9 @@ export default function Header() {
         <div>
             <div id='top-header'>
             <HeaderButton text='О компании' link='/about' />
-            <HeaderButton text='Магазины' link='/about' />
-            <HeaderButton text='Скидки' link='/about' />
-            <HeaderButton text='Рассрочка' link='/about' />
-            <HeaderButton text='Новинки' link='/about' />
+            <HeaderButton text='Магазины' link='/shops' />
+            <HeaderButton text='Скидки' link='/discount' />
+            <HeaderButton text='Рассрочка' link='/payment' />
                 <div style={{ flex: 1 }} />
                 {profile != null &&
                     <div id='greetings-box'>

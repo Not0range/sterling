@@ -21,6 +21,9 @@ import Cart from './routes/Cart';
 import Orders from './routes/Orders';
 import OrdersControl from './routes/OrdersControl';
 import CategoryForm from './routes/CategoryForm';
+import Shops from './routes/Shops';
+import Discount from './routes/Discount';
+import Payment from './routes/Payment';
 
 const router = createBrowserRouter([
   {
@@ -34,10 +37,6 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <Search />
-      },
-      {
-        path: '/about',
-        element: <About />
       },
       {
         path: '/product',
@@ -74,7 +73,23 @@ const router = createBrowserRouter([
       {
         path: '/orders/admin',
         element: <OrdersControl />
-      }
+      },
+      {
+        path: '/about',
+        element: <About />
+      },
+      {
+        path: '/shops',
+        element: <Shops />
+      },
+      {
+        path: '/discount',
+        element: <Discount />
+      },
+      {
+        path: '/payment',
+        element: <Payment />
+      },
     ]
   }
 ]);
