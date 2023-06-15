@@ -106,7 +106,7 @@ namespace webapi.Controllers
                 Email = form.Email.ToLower(),
                 Name = form.Name,
                 Password = hash,
-                BirthDate = DateOnly.FromDateTime(form.BirthDate),
+                Phone = form.Phone,
                 Role = UserRole.User
             };
             _ctx.Users.Add(user);

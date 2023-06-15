@@ -14,12 +14,12 @@ namespace webapi.Entities
         public string Username { get; set; }
         [IndexColumn, Required]
         public string Email { get; set; }
+        [IndexColumn, Required]
+        public string Phone { get; set; }
         [Required]
         public string Password { get; set; }
         [Required]
         public string Name { get; set; }
-        [Column(TypeName = "date"), Required]
-        public DateOnly BirthDate { get; set; }
         public UserRole Role { get; set; }
     }
     public enum UserRole : byte

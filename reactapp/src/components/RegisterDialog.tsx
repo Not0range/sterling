@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setProfile, useAppDispatch } from "../store";
 import '../styles/components/LoginDialog.css'
 import $ from 'jquery';
@@ -7,18 +7,28 @@ import { Modal } from "bootstrap";
 export default function RegisterDialog() {
     const dispatcher = useAppDispatch();
 
+    const [error, setError] = useState(false);
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
 
+    useEffect(() => {
+        setError(false);
+    }, [username, name, email, phone, password, password2]);
+
     const submit = () => {
-        if (username.length == 0 || 
-            password.length == 0 || 
-            name.length == 0 || 
+        if (username.length == 0 ||
+            password.length == 0 ||
+            name.length == 0 ||
             email.length == 0 ||
-            password != password2) return false;
+            !/^77\d{6}$/.test(phone) ||
+            password != password2) {
+            setError(true);
+            return false;
+        }
 
         const data = new FormData(document.querySelector('#register-form') as HTMLFormElement);
 
@@ -35,7 +45,7 @@ export default function RegisterDialog() {
                 }
             },
             error: () => {
-                alert('Wrong');
+                setError(true);
             }
         })
         return false;
@@ -50,6 +60,9 @@ export default function RegisterDialog() {
                         <button type='button' className='btn-close' data-bs-dismiss='modal' />
                     </div>
                     <div className='modal-body'>
+                        {error && <div className='alert alert-danger' role='alert'>
+                            Введены неверные данные
+                        </div>}
                         <form id='register-form'>
                             <input
                                 type='text'
@@ -66,6 +79,14 @@ export default function RegisterDialog() {
                                 placeholder='Адрес эл. почты'
                                 onChange={e => setEmail(e.target.value)}
                                 value={email}
+                            />
+                            <input
+                                type='tel'
+                                name='phone'
+                                className='form-control'
+                                placeholder='Номер телефона (77XXXXXX)'
+                                onChange={e => setPhone(e.target.value)}
+                                value={phone}
                             />
                             <input
                                 type='text'

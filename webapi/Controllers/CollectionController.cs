@@ -175,6 +175,8 @@ namespace webapi.Controllers
 
             if (!await db.KeyExistsAsync(key)) await json.SetAsync(key, "$", Array.Empty<ProductOrder>());
 
+            if (!await db.KeyExistsAsync(orderId)) await db.StringSetAsync(orderId, 1);
+
             var id = (int)await db.StringGetAsync(orderId);
             await json.ArrAppendAsync(key, "$", new ProductOrder
             {
