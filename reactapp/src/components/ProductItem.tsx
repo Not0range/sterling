@@ -7,7 +7,7 @@ export default function ProductItem({ product }: IProps) {
     const [url, setUrl] = useState(product.imageUrl);
     const onError = () => {
         if (url == product.imageUrl)
-            setUrl('logo192.png');
+            setUrl('placeholder.png');
     }
     return (
         <Link to={`/product?id=${product.id}`} className='product-item'>

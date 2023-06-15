@@ -8,7 +8,7 @@ export default function CartItem({ item, loading, ...props }: IProps) {
 
     const onError = () => {
         if (url == `api/images/product/${item.id}`)
-            setUrl('logo192.png');
+            setUrl('placeholder.png');
     }
     const setCount = (count: number) => {
         setCart({ ...cart, count });

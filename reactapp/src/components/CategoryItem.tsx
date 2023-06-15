@@ -8,7 +8,7 @@ export default function CategoryItem({category}: IProps) {
 
     const onError = () => {
         if (url == `api/images/category/${category.id}`)
-            setUrl('logo192.png');
+            setUrl('placeholder.png');
     }
 
     return (

@@ -126,7 +126,7 @@ export default function Product() {
                     <div id='product-main'>
                         <div id='product-image-container'>
                             <div>
-                                <img src={types && types.length > 0 ? `/api/images/product/${types[img].id}` : 'logo192.png'} />
+                                <img src={types && types.length > 0 ? `/api/images/product/${types[img].id}` : 'placeholder.png'} />
                             </div>
                             {types && <div id='carousel'>
                                 {types.map((t, i) =>
